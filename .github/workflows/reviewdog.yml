@@ -10,8 +10,9 @@ jobs:
   reviewdog:
     runs-on: ubuntu-latest
 
-    if: github.event_name == 'pull_request' || contains(github.event.comment.html_url, '/pull/')
-    if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/reviewdog')
+    if: |
+      github.event_name == 'pull_request' ||
+      (contains(github.event.comment.html_url, '/pull/') && startsWith(github.event.comment.body, '/reviewdog'))
 
     steps:
     - uses: actions/checkout@v2
