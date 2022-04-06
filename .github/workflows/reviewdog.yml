@@ -1,4 +1,4 @@
-name: reviewdog-suggester
+name: Reviewdog
 
 on:
   pull_request:
