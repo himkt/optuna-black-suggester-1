@@ -2,28 +2,18 @@ name: Reviewdog
 
 on:
   pull_request:
-    types: [opened]
-  issue_comment:
-    types: [created]
+    types: [opened, review_requested]
 
 jobs:
   reviewdog:
     runs-on: ubuntu-latest
 
-    if: |
-      github.event_name == 'pull_request' ||
-      (contains(github.event.comment.html_url, '/pull/') && startsWith(github.event.comment.body, '/reviewdog'))
+    if: ${{ github.event.requested_team.name == 'reviewers'}}
 
     steps:
 
     - name: Checkout
       uses: actions/checkout@v2
-
-    - name: Checkout on issue_comment
-      if: github.event_name == 'issue_comment'
-      run: hub pr checkout ${{ github.event.issue.number }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - uses: actions/setup-python@v2
       with:
