@@ -8,7 +8,7 @@ jobs:
   reviewdog:
     runs-on: ubuntu-latest
 
-    if: ${{ github.event.requested_team.name == 'reviewers'}}
+    if: github.event.pull_request.action == 'opened' || github.event github.event.requested_team.name == 'reviewers'
 
     steps:
 
