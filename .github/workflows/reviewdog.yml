@@ -1,11 +1,17 @@
 name: reviewdog-suggester
 
 on:
-  pull_request: {}
+  pull_request:
+    types: [opened]
+  issue_comment:
+    types: [created]
 
 jobs:
-  black:
+  reviewdog:
     runs-on: ubuntu-latest
+
+    if: github.event_name == 'pull_request' || contains(github.event.comment.html_url, '/pull/')
+    if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/reviewdog')
 
     steps:
     - uses: actions/checkout@v2
