@@ -27,25 +27,12 @@ jobs:
         pip install --progress-bar off -U .[checking]
 
     - name: Black
-      run: black .
+      run: |
+        black .
+        blackdoc .
+        isort .
 
     - name: Reviewdog
       uses: reviewdog/action-suggester@v1
       with:
-        tool_name: black
-
-    - name: Blackdoc
-      run: blackdoc .
-
-    - name: Reviewdog
-      uses: reviewdog/action-suggester@v1
-      with:
-        tool_name: blackdoc
-
-    - name: Isort
-      run: isort .
-
-    - name: Reviewdog
-      uses: reviewdog/action-suggester@v1
-      with:
-        tool_name: isort
+        tool_name: formatters
