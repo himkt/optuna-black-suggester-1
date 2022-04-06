@@ -15,9 +15,8 @@ jobs:
       (contains(github.event.comment.html_url, '/pull/') && startsWith(github.event.comment.body, '/reviewdog'))
 
     steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
+    - name: Checkout
+      run: hub pr checkout ${{ github.event.issue.number }}
 
     - uses: actions/setup-python@v2
       with:
